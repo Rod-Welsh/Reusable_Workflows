@@ -37,6 +37,4 @@ jobs:
               run: |
                   echo "Running additional tests on ubuntu-latest"
                   echo "This job was initiated by Reusable Workflow 1, using the ${{ github.workflow }} workflow"
-                  echo "This workflow was called by ${{ github.event.workflow_call.caller }} workflow
-                  echo "This workflow was called by ${{ github.event.workflow_call.caller }} workflow, using the ${{ github.event.workflow_call.workflow }} workflow"
                   echo "This workflow was called by the ${{ github.actor }} actor"
