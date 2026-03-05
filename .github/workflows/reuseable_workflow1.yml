@@ -1,0 +1,26 @@
+name: Reuasable Workflow 1
+
+on:
+    workflow_call:
+
+jobs:
+    job1:
+        name: Test Reuasable Workflow 1
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
+                node: [18, 20]
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node }}
+
+            - name: Run tests
+              run: |
+                  echo "Running tests on ${{ matrix.os }} with Node.js ${{ matrix.node }}"
