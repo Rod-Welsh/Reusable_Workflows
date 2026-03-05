@@ -24,3 +24,19 @@ jobs:
             - name: Run tests
               run: |
                   echo "Running tests on ${{ matrix.os }} with Node.js ${{ matrix.node }}"
+
+    job2:
+        name: Test Reuasable Workflow 2
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Run additional tests
+              run: |
+                  echo "Running additional tests on ubuntu-latest"
+                  echo "This job was initiated by Reusable Workflow 1, using the ${{ github.workflow }} workflow"
+                  echo "This workflow was called by ${{ github.event.workflow_call.caller }} workflow
+                  echo "This workflow was called by ${{ github.event.workflow_call.caller }} workflow, using the ${{ github.event.workflow_call.workflow }} workflow"
+                  echo "This workflow was called by the ${{ github.actor }} actor"
