@@ -1,4 +1,5 @@
 name: Reusable API Call Workflow
+
 env:
     OWNER: ${{ github.repository_owner }}
     REPO: ${{ github.event.repository.name }}
@@ -25,7 +26,7 @@ jobs:
               run: |
                   echo "The repository structure is as follows:" >> $GITHUB_STEP_SUMMARY
                   tree -L 2 >> $GITHUB_STEP_SUMMARY || echo "Tree command not available, skipping repository structure output." >> $GITHUB_STEP_SUMMARY
-                  echo "Reposisotory structure output complete." >> $GITHUB_STEP_SUMMARY
+                  echo "Repository structure output complete." >> $GITHUB_STEP_SUMMARY
 
     APICallCheckworkflow:
         needs: Checkrepository
@@ -40,9 +41,9 @@ jobs:
               run: |
                   echo "Making API Call to check for workflows being used in repository..." >> $GITHUB_STEP_SUMMARY
                   response=$(gh api \
-                      -H "Accept: application/vnd.github+json" \
-                      -H "X-Github-Api-Version: 2022-11-28" \
-                      /repos/${{ env.OWNER }}/${{ env.REPO }}/actions/workflows)
+                    -H "Accept: application/vnd.github+json" \
+                    -H "X-Github-Api-Version: 2022-11-28" \
+                    /repos/${{ env.OWNER }}/${{ env.REPO }}/actions/workflows)
 
                   echo "$response" | jq '{
                     owner: "${{ env.OWNER }}",
@@ -69,9 +70,9 @@ jobs:
               run: |
                   echo "Making API Call to check for Artifacts in repository..." >> $GITHUB_STEP_SUMMARY
                   response=$(gh api \
-                      -H "Accept: application/vnd.github+json" \
-                      -H "X-Github-Api-Version: 2022-11-28" \
-                      /repos/${{ env.OWNER }}/${{ env.REPO }}/actions/artifacts)
+                    -H "Accept: application/vnd.github+json" \
+                    -H "X-Github-Api-Version: 2022-11-28" \
+                    /repos/${{ env.OWNER }}/${{ env.REPO }}/actions/artifacts)
 
                   echo "$response" | jq '{
                     owner: "${{ env.OWNER }}",
