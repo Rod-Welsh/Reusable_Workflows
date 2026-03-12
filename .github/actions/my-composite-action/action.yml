@@ -12,7 +12,17 @@ runs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - id: run-script
+      run: echo "result=Success" >> $GITHUB_OUTPUT
+      shell: bash
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
+
+outputs:
+  script-result:
+    description: "Result from the script"
+    value: ${{ steps.run-script.outputs.result }}
+  

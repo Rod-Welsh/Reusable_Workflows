@@ -1,0 +1,1 @@
+echo "This workflow is triggered by a reusable call to a composite action."
