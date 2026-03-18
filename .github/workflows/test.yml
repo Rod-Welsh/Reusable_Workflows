@@ -11,7 +11,7 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Install MyCLI
-              uses: ./.github/actions/my-cli-action
+              uses: ./.github/actions/my-cli-action/action.yml
               with:
                   version: "1.2.3"
 
