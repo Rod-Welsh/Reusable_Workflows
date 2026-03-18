@@ -1,0 +1,13 @@
+name: "Setup MyCLI"
+description: "Installs CLI to the runner and adds it to the PATH"
+author: "Rod Welsh"
+
+inputs:
+  version:
+    description: "The version of MyCLI to install"
+    required: false
+    default: "latest"
+
+runs:
+  using: "node16"
+  main: "index.js"
