@@ -21,3 +21,9 @@ jobs:
               run: |
                   echo "Verifying MyCLI installation..."
                   mycli --version
+
+            - name: Cache MyCLI
+              uses: actions/cache@v4
+              with:
+                  path: ~/.mycli
+                  key: mycli-${{ runner.os }}-${{ inputs.version }}
