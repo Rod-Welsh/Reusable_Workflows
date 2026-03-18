@@ -1,7 +1,9 @@
 name: Test MyCLI Setup
 on:
     push:
-        branches: [main feature/*]
+        branches:
+            - main
+            - feature/*
 
 jobs:
     test:
