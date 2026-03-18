@@ -13,7 +13,10 @@ runs:
       uses: actions/checkout@v4
 
     - id: run-script
-      run: echo "result=Success" >> $GITHUB_OUTPUT
+      run: |
+        result="Success"
+        echo "result=$result" >> $GITHUB_OUTPUT
+        echo "SCRIPT_RESULT=$result" >> $GITHUB_ENV
       shell: bash
 
     - name: Set up Node.js
@@ -24,5 +27,5 @@ runs:
 outputs:
   script-result:
     description: "Result from the script"
-    value: ${{ steps.run-script.outputs.result }}
+    value: ${{ env.SCRIPT_RESULT }}
   
