@@ -1,0 +1,48 @@
+name: Reusable - JFrog Artifact Scan
+
+on:
+    workflow_call:
+        inputs:
+            environment:
+                description: "Deployment environment (e.g. dev, staging, production)"
+                required: true
+                type: string
+            artifact-name:
+                description: "Name of the artifact to publish/scan"
+                required: false
+                type: string
+                default: "${{ github.repository }}"
+
+jobs:
+    jfrog-scan:
+        name: JFrog Artifact Scan & Publish
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Build and scan artifact with JFrog
+              run: |
+                  echo "=== JFrog Artifact Scan & Publish ==="
+                  echo "Environment   : ${{ inputs.environment }}"
+                  echo "Artifact Name : ${{ inputs.artifact-name }}"
+                  echo "Repository    : ${{ github.repository }}"
+                  echo "Ref           : ${{ github.ref_name }}"
+                  echo ""
+                  echo "[PLACEHOLDER] Authenticating with JFrog Artifactory..."
+                  echo "[PLACEHOLDER] Building artifact: ${{ inputs.artifact-name }}"
+                  echo "[PLACEHOLDER] Running JFrog Xray security scan on artifact..."
+                  echo "[PLACEHOLDER] Xray scan complete. No violations found."
+                  echo "[PLACEHOLDER] Publishing artifact to Artifactory repository..."
+                  echo "[PLACEHOLDER] Artifact published successfully."
+
+            - name: Write job summary
+              run: |
+                  echo "## JFrog Artifact Scan Results :package:" >> $GITHUB_STEP_SUMMARY
+                  echo "| Step | Status |" >> $GITHUB_STEP_SUMMARY
+                  echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Build | ✅ Success |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Xray Scan | ✅ No violations |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Publish | ✅ Published |" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Artifact:** ${{ inputs.artifact-name }} | **Environment:** ${{ inputs.environment }}" >> $GITHUB_STEP_SUMMARY

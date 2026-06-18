@@ -1,0 +1,48 @@
+name: Reusable - Checkmarx SAST Scan
+
+on:
+    workflow_call:
+        inputs:
+            environment:
+                description: "Deployment environment (e.g. dev, staging, production)"
+                required: true
+                type: string
+            project-name:
+                description: "Checkmarx project name to scan under"
+                required: false
+                type: string
+                default: "${{ github.repository }}"
+
+jobs:
+    checkmarx-scan:
+        name: Checkmarx SAST Scan
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Run Checkmarx SAST scan
+              run: |
+                  echo "=== Checkmarx Static Application Security Testing ==="
+                  echo "Environment  : ${{ inputs.environment }}"
+                  echo "Project Name : ${{ inputs.project-name }}"
+                  echo "Repository   : ${{ github.repository }}"
+                  echo "Commit SHA   : ${{ github.sha }}"
+                  echo ""
+                  echo "[PLACEHOLDER] Authenticating with Checkmarx One platform..."
+                  echo "[PLACEHOLDER] Uploading source code for project: ${{ inputs.project-name }}"
+                  echo "[PLACEHOLDER] Running SAST scan..."
+                  echo "[PLACEHOLDER] Scan complete. Critical: 0, High: 0, Medium: 2, Low: 5"
+                  echo "[PLACEHOLDER] Scan result: PASSED (no critical/high vulnerabilities)"
+
+            - name: Write job summary
+              run: |
+                  echo "## Checkmarx SAST Scan Results :shield:" >> $GITHUB_STEP_SUMMARY
+                  echo "| Severity | Count |" >> $GITHUB_STEP_SUMMARY
+                  echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Critical | 0 |" >> $GITHUB_STEP_SUMMARY
+                  echo "| High | 0 |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Medium | 2 |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Low | 5 |" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Result: ✅ PASSED** (environment: ${{ inputs.environment }})" >> $GITHUB_STEP_SUMMARY

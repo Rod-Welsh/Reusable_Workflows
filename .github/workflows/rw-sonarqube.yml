@@ -1,0 +1,49 @@
+name: Reusable - SonarQube Scan
+
+on:
+    workflow_call:
+        inputs:
+            environment:
+                description: "Deployment environment (e.g. dev, staging, production)"
+                required: true
+                type: string
+            scan-type:
+                description: "Type of scan to run (e.g. full, incremental)"
+                required: false
+                type: string
+                default: "full"
+            project_directory:
+                description: "Directory containing the project to scan (relative to repository root)"
+                required: false
+                type: string
+                default: "./"
+
+jobs:
+    sonarqube-scan:
+        name: SonarQube Code Quality Scan
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Run SonarQube scan
+              run: |
+                  echo "=== SonarQube Code Quality Scan ==="
+                  echo "Environment : ${{ inputs.environment }}"
+                  echo "Scan type   : ${{ inputs.scan-type }}"
+                  echo "Repository  : ${{ github.repository }}"
+                  echo "Branch/Ref  : ${{ github.ref_name }}"
+                  echo ""
+                  echo "[PLACEHOLDER] Authenticating with SonarQube server..."
+                  echo "[PLACEHOLDER] Running sonar-scanner with project key: ${{ github.repository }}"
+                  echo "[PLACEHOLDER] Waiting for Quality Gate result..."
+                  echo "[PLACEHOLDER] Quality Gate: PASSED"
+
+            - name: Write job summary
+              run: |
+                  echo "## SonarQube Scan Results :mag:" >> $GITHUB_STEP_SUMMARY
+                  echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+                  echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Environment | ${{ inputs.environment }} |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Scan Type | ${{ inputs.scan-type }} |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Quality Gate | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY

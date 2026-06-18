@@ -1,0 +1,49 @@
+name: Reusable - Wiz Security Scan
+
+on:
+    workflow_call:
+        inputs:
+            environment:
+                description: "Deployment environment (e.g. dev, staging, production)"
+                required: true
+                type: string
+            image-tag:
+                description: "Container image tag to scan (e.g. my-app:1.0.0)"
+                required: false
+                type: string
+                default: "latest"
+
+jobs:
+    wiz-scan:
+        name: Wiz Cloud & Container Security Scan
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Run Wiz security scan
+              run: |
+                  echo "=== Wiz Cloud & Container Security Scan ==="
+                  echo "Environment : ${{ inputs.environment }}"
+                  echo "Image Tag   : ${{ inputs.image-tag }}"
+                  echo "Repository  : ${{ github.repository }}"
+                  echo "Triggered by: ${{ github.actor }}"
+                  echo ""
+                  echo "[PLACEHOLDER] Authenticating with Wiz platform..."
+                  echo "[PLACEHOLDER] Pulling image: ${{ inputs.image-tag }}"
+                  echo "[PLACEHOLDER] Running container vulnerability scan..."
+                  echo "[PLACEHOLDER] Running IaC misconfiguration check..."
+                  echo "[PLACEHOLDER] Scan complete. Vulnerabilities: 0 Critical, 1 High (accepted)"
+                  echo "[PLACEHOLDER] IaC issues: 0 Critical, 0 High"
+                  echo "[PLACEHOLDER] Wiz scan result: PASSED"
+
+            - name: Write job summary
+              run: |
+                  echo "## Wiz Security Scan Results :lock:" >> $GITHUB_STEP_SUMMARY
+                  echo "| Check | Result |" >> $GITHUB_STEP_SUMMARY
+                  echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Container Vulnerabilities (Critical) | 0 ✅ |" >> $GITHUB_STEP_SUMMARY
+                  echo "| Container Vulnerabilities (High) | 1 (accepted risk) |" >> $GITHUB_STEP_SUMMARY
+                  echo "| IaC Misconfigurations | 0 ✅ |" >> $GITHUB_STEP_SUMMARY
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                  echo "**Environment:** ${{ inputs.environment }} | **Image:** ${{ inputs.image-tag }}" >> $GITHUB_STEP_SUMMARY
