@@ -1,0 +1,29 @@
+name: Reusable Deploy
+
+on:
+    workflow_call:
+        inputs:
+            environment:
+                required: true
+                type: string
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        environment: ${{ inputs.environment }}
+
+        steps:
+            - name: Display Environment
+
+              run: |
+
+                  echo "Deploying to:"
+                  echo "${{ inputs.environment }}"
+
+            - name: Show Variables
+
+              run: |
+
+                  echo "AKS_CLUSTER=${{ vars.AKS_CLUSTER }}"
+                  echo "RESOURCE_GROUP=${{ vars.RESOURCE_GROUP }}"
