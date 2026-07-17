@@ -1,0 +1,42 @@
+name: Reusable - Deploy Application
+
+on:
+    workflow_call:
+        inputs:
+            environment:
+                description: "Deployment environment (e.g. dev, sit, uat, perf, preprod, prod)"
+                required: true
+                type: string
+            version:
+                description: "Application version/tag to deploy"
+                required: false
+                type: string
+                default: "${{ github.sha }}"
+
+jobs:
+    deploy:
+        name: Deploy to ${{ inputs.environment }}
+        runs-on: ubuntu-latest
+        environment: ${{ inputs.environment }}
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Deploy application
+              run: |
+                  echo "=== Deployment ==="
+                  echo "Environment  : ${{ inputs.environment }}"
+                  echo "Version      : ${{ inputs.version }}"
+                  echo "Repository   : ${{ github.repository }}"
+                  echo "Commit SHA   : ${{ github.sha }}"
+                  echo ""
+                  echo "[PLACEHOLDER] Authenticating with ${{ inputs.environment }} deployment target..."
+                  echo "[PLACEHOLDER] Deploying version ${{ inputs.version }} to ${{ inputs.environment }}..."
+                  echo "[PLACEHOLDER] Deployment complete."
+
+            - name: Write job summary
+              run: |
+                  echo "## Deployment Results :rocket:" >> $GITHUB_STEP_SUMMARY
+                  echo "| Environment | Version | Result |" >> $GITHUB_STEP_SUMMARY
+                  echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
+                  echo "| ${{ inputs.environment }} | ${{ inputs.version }} | ✅ PASSED |" >> $GITHUB_STEP_SUMMARY
