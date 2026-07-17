@@ -26,6 +26,8 @@ jobs:
 
               run: |
 
-                  echo "AKS_CLUSTER=${{ vars.AKS_CLUSTER }}"
-                  echo "RESOURCE_GROUP=${{ vars.RESOURCE_GROUP }}"
-                  echo ":: warning:: This is a warning message to indicate that the following variables are sensitive and should be handled with care."
+                  echo "Hello"
+
+                  echo "::warning:: This is a warning message to indicate that the following variables are sensitive and should be handled with care."
+
+                  echo "GoodBye"
